@@ -1,0 +1,42 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global Safety Net Default-Deny Catch-All
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Input ID validation helper
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Helper to extract incoming resource state data
+    function incoming() {
+      return request.resource.data;
+    }
+
+    // Submissions: allow creation for anyone (Public user registration) with validation logic
+    match /submissions/{submissionId} {
+      allow create: if (
+        incoming().id is string &&
+        incoming().industry is string &&
+        incoming().industry.size() <= 200 &&
+        incoming().description is string &&
+        incoming().description.size() <= 10000 &&
+        incoming().proposedPrice is number &&
+        incoming().proposedPrice >= 0 &&
+        incoming().contactName is string &&
+        incoming().contactName.size() <= 200 &&
+        incoming().contactPhone is string &&
+        incoming().contactPhone.size() <= 30 &&
+        incoming().submittedAt is string &&
+        incoming().status in ['pending', 'analyzed', 'confirmed']
+      );
+
+      // Allow public database list and get so the real-time submission dashboard continues functioning 
+      allow read, list: if true;
+    }
+  }
+}

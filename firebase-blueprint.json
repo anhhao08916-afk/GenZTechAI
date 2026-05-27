@@ -1,0 +1,27 @@
+{
+  "entities": {
+    "submission": {
+      "title": "Yêu cầu thiết kế Web/App bằng AI",
+      "description": "Thông tin đăng ký thiết kế website và ứng dụng tự động bằng AI từ phía khách hàng.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "ID duy nhất của đăng ký." },
+        "industry": { "type": "string", "description": "Lĩnh vực kinh doanh của website/app mong muốn." },
+        "description": { "type": "string", "description": "Chi tiết yêu cầu, mô tả chức năng cốt lõi." },
+        "proposedPrice": { "type": "number", "description": "Mức giá đề xuất của khách hàng (VNĐ)." },
+        "contactName": { "type": "string", "description": "Họ và tên người đăng ký liên hệ." },
+        "contactPhone": { "type": "string", "description": "Số điện thoại di động đăng ký." },
+        "contactEmail": { "type": "string", "description": "Địa chỉ email nhận bản vẽ / tư vấn." },
+        "submittedAt": { "type": "string", "format": "date-time", "description": "Thời gian gửi yêu cầu." },
+        "status": { "type": "string", "enum": ["pending", "analyzed", "confirmed"], "description": "Trạng thái xử lý yêu cầu số hóa." }
+      },
+      "required": ["id", "industry", "description", "proposedPrice", "contactName", "contactPhone", "submittedAt", "status"]
+    }
+  },
+  "firestore": {
+    "submissions": {
+      "schema": "submission",
+      "description": "Bộ lưu trữ các yêu cầu đăng ký phát triển sản phẩm công nghệ từ người dùng."
+    }
+  }
+}

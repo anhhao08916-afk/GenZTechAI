@@ -1,0 +1,6 @@
+{
+  "name": "Nền tảng GENZ TECH AI",
+  "description": "Dịch vụ thiết kế và phát triển ứng dụng, website tự động bằng công nghệ trí tuệ nhân tạo (AI) hàng đầu Việt Nam.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
